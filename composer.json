@@ -1,0 +1,27 @@
+{
+    "name": "mlevent/ivd",
+    "description": "İnternet Vergi Dairesi Yardımcı Aracı",
+    "keywords": [
+        "gib",
+        "ivd",
+        "interaktif vergi dairesi",
+        "maliye",
+        "vergi"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mlevent\\Ivd\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mlevent",
+            "email": "ghergedan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
