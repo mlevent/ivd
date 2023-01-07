@@ -208,7 +208,7 @@ $ivd->getPreviousVehicles();
  */
 $ivd->getTaxPenaltyNoticeInformation();
 
-**
+/**
  * Sanal Pos Ödemeleri
  * Gelir İdaresi Başkanlığına sanal pos üzerinden yapılan ödemelerin listesini verir.
  *
@@ -219,7 +219,7 @@ $ivd->getVirtualPosPayments(
     year: 2018
 );
 
-**
+/**
  * E-Devlet Ödemeleri
  * Gelir İdaresi Başkanlığına e-devlet üzerinden yapılan ödemelerin listesini verir.
  *
@@ -230,7 +230,7 @@ $ivd->getEDevletPayments(
     year: 2018
 );
 
-**
+/**
  * Diğer Ödemeler
  *
  * @param  int   $year · Yıl
@@ -240,7 +240,7 @@ $ivd->getOtherPayments(
     year: 2018
 );
 
-/*
+/**
  * Servis Mesajları
  * İnteraktif Vergi Dairesi üzerinden yayınlanan servis mesajlarını döndürür.
  *
