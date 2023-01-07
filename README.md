@@ -1,6 +1,6 @@
 # 💸 İnteraktif Vergi Dairesi
 
-GİB İnteraktif Vergi Dairesi üzerinden şifresiz/şifreli işlemlere olanak tanır.
+Bu Paket ile GİB İnteraktif Vergi Dairesi üzerinden bazı şifresiz/şifreli işlemleri gerçekleştirebilirsiniz.
 
 -   https://ivd.gib.gov.tr
 
@@ -12,35 +12,22 @@ GİB İnteraktif Vergi Dairesi üzerinden şifresiz/şifreli işlemlere olanak t
 composer require mlevent/ivd
 ```
 
-## Kullanım
+## Örnek Kullanım
 
 ```php
-use Mlevent\Ivd\IvdException;
 use Mlevent\Ivd\IvdService;
 
-try {
+// Şifresiz Giriş
+$ivd = (new IvdService)->login();
 
-    // Şifresiz Giriş
-    $ivd = (new IvdService)->login();
+// Vergi Numarası Doğrulama
+$result = $ivd->taxIdVerification(
+    taxId     : '1234567890',
+    province  : '016',
+    taxOffice : '016252'
+);
 
-    // Vergi Numarası Doğrulama
-    $result = $ivd->taxIdVerification(
-        trId      : '11111111111',
-        province  : '016',
-        taxOffice : '016252'
-    );
-
-    print_r($result);
-
-    // Oturumu Sonlandır
-    $ivd->logout();
-
-} catch(IvdException $e){
-
-    print_r($e->getMessage());
-    print_r($e->getResponse());
-    print_r($e->getRequest());
-}
+print_r($result);
 ```
 
 ### Gerçek Kullanıcı
@@ -52,9 +39,6 @@ use Mlevent\Ivd\IvdService;
 
 // Kullanıcı Bilgileriyle Giriş
 $ivd = (new IvdService)->login('TC Kimlik No', 'Parola');
-
-// Şirketlerdeki Ortaklık ve Yöneticilik Bilgileri
-print_r($ivd->getPartnerships());
 ```
 
 > Not: Token değerini herhangi bir yerde kullanmanız gerekmeyecek.
@@ -63,51 +47,87 @@ print_r($ivd->getPartnerships());
 
 İnteraktif Vergi Dairesi üzerindeki bazı servisler şifresiz/giriş yapmadan kullanılabilir;
 
-#### Vergi Kimlik Numarası Sorgulama
-
 ```php
+/**
+ * Vergi Kimlik Numarası Sorgulama
+ * @description Kimlik bilgileriyle Vergi Kimlik numarası sorgulama. Tüm alanların gönderilmesi zorunludur. 
+ *
+ * @param  string $name        · İsim
+ * @param  string $lastName    · Soyisim
+ * @param  string $fatherName  · Baba Adı
+ * @param  string $province    · İl
+ * @param  string $dateOfBirth · Doğum Tarihi
+ * @return array
+ */
 $result = $ivd->taxIdInquiry(
-    name        : 'Mert',    // Zorunlu · Ad
-    lastName    : 'Levent',  // Zorunlu · Soyad
-    fatherName  : 'Walter',  // Zorunlu · Baba Adı
-    province    : '016',     // Zorunlu · İl
-    dateOfBirth : '19890511' // Zorunlu · Doğum Tarihi
+    name        : 'Mert',
+    lastName    : 'Levent',
+    fatherName  : 'Walter',
+    province    : '016',
+    dateOfBirth : '19890511'
 );
 
-print_r($result);
-```
-
-#### Yabancılar İçin Vergi Kimlik Numarasından Sorgulama
-
-```php
+/**
+ * Yabancılar İçin Vergi Kimlik Numarasından Sorgulama
+ *
+ * @param  string $taxId · Vergi Numarası
+ * @return array
+ */
 $result = $ivd->taxIdInquiryForForeigners(
-    taxId : '1234567890' // Zorunlu · Vergi Numarası
+    taxId : '1234567890'
 );
 
-print_r($result);
-```
-
-#### Vergi Kimlik Numarası Doğrulama
-
-```php
+/**
+ * Vergi Kimlik Numarası Doğrulama
+ * @description Sorgulanacak kişi ya da kurumun Vergi Kimlik ya da T.C. Kimlik numarasından sadece birini giriniz.
+ *
+ * @param  string $taxId     · Vergi Numarası
+ * @param  string $trId      · TcKN
+ * @param  string $province  · İl
+ * @param  string $taxOffice · Vergi Dairesi
+ * @return array
+ */
 $result = $ivd->taxIdVerification(
-    //taxId   : '1234567890',  // Opsiyonel · Vergi Numarası
-    trId      : '11111111111', // Opsiyonel · TcKN
-    province  : '016',         // Zorunlu   · İl
-    taxOffice : '016252'       // Zorunlu   · Vergi Dairesi
+    //taxId   : '1234567890',
+    trId      : '11111111111',
+    province  : '016',
+    taxOffice : '016252'
 );
 
-print_r($result);
-```
+/**
+ * Vergi Dairelerine ait liste çıktısını verir.
+ *
+ * @return array
+ */
+$ivd->getTaxOffices();
 
-#### Diğer Metodlar
+/**
+ * Vergileri ve vergi kodlarına ait liste çıktısını verir.
+ *
+ * @return array
+ */
+$ivd->getTaxList();
 
-```php
-print_r($ivd->getTaxOffices());            // Vergi Daireleri
-print_r($ivd->getTaxList());               // Vergiler
-print_r($ivd->getCountries());             // Ülkeler
-print_r($ivd->getProvinces());             // İller
-print_r($ivd->getProvincesAndDistricts()); // İller ve İlçeler
+/**
+ * Ülkelere ait liste çıktısını verir.
+ *
+ * @return array
+ */
+$ivd->getCountries();
+
+/**
+ * Türkiye'deki illere ait liste çıktısını verir.
+ *
+ * @return array
+ */
+$ivd->getProvinces();
+
+/**
+ * Türkiye'deki iller ve ilçelere ait liste çıktısını verir.
+ *
+ * @return array
+ */
+$ivd->getProvincesAndDistricts();
 ```
 
 ## Şifreli İşlemler
