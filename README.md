@@ -50,7 +50,7 @@ $ivd = (new IvdService)->login('TC Kimlik No', 'Parola');
 ```php
 /**
  * Vergi Kimlik Numarası Sorgulama
- * @description Kimlik bilgileriyle Vergi Kimlik numarası sorgulama. Tüm alanların gönderilmesi zorunludur. 
+ * Kimlik bilgileriyle Vergi Kimlik numarası sorgulama. Tüm alanların gönderilmesi zorunludur. 
  *
  * @param  string $name        · İsim
  * @param  string $lastName    · Soyisim
@@ -79,7 +79,7 @@ $result = $ivd->taxIdInquiryForForeigners(
 
 /**
  * Vergi Kimlik Numarası Doğrulama
- * @description Sorgulanacak kişi ya da kurumun Vergi Kimlik ya da T.C. Kimlik numarasından sadece birini giriniz.
+ * Sorgulanacak kişi ya da kurumun Vergi Kimlik ya da T.C. Kimlik numarasından sadece birini giriniz.
  *
  * @param  string $taxId     · Vergi Numarası
  * @param  string $trId      · TcKN
@@ -134,93 +134,118 @@ $ivd->getProvincesAndDistricts();
 
 İnteraktif Vergi Dairesinde kayıtlı TcKN ve şifre bilgileriyle oturum açılarak kullanılabilecek metodlar;
 
-#### Sicil Kaydı
-
 ```php
-$ivd->getRegistry();
-```
-
-#### Kimlik Bilgileri
-
-```php
+/**
+ * Nüfus müdürlüğünde kayıtlı kimlik bilgileri.
+ *
+ * @return array
+ */
 $ivd->getIdInformation();
-```
 
-#### Şirketlerdeki Ortaklık ve Yöneticilik Bilgileri
+/**
+ * Vergi dairesi ve nüfus müdürlüğü sicil kaydı.
+ *
+ * @return array
+ */
+$ivd->getRegistry();
 
-```php
+/**
+ * Şirketlerdeki ortaklık ve yöneticilik bilgileri.
+ *
+ * @return array
+ */
 $ivd->getPartnerships();
-```
 
-#### Borç Durumu
-
-```php
+/**
+ * Borç Durumu
+ * Gelir İdaresi Başkanlığında kayıtlı borçlara ait liste çıktısını verir.
+ *
+ * @return array
+ */
 $ivd->getDebtStatus();
-```
 
-#### KYK Borç Durumu
-
-```php
+/**
+ * KYK Borç Durumu
+ *
+ * @return array
+ */
 $ivd->getKYKDebtStatus();
-```
 
-#### Banka Hesaplarına Uygulanan Elektronik Hacizler
-
-```php
+/**
+ * Banka Hesaplarına Uygulanan Elektronik Hacizler
+ *
+ * @return array
+ */
 $ivd->getGarnishmentsAppliedToBankAccounts();
-```
 
-#### Araçlara Uygulanan Elektronik Hacizler
-
-```php
+/**
+ * Araçlara Uygulanan Elektronik Hacizler
+ *
+ * @return array
+ */
 $ivd->getGarnishmentsAppliedToVehicles();
-```
 
-#### Mevcut Araç Bilgileri
-
-```php
+/**
+ * Mevcut Araç Bilgileri
+ * Şu an sahibi olduğunuz araçlara ait bilgileri döndürür.
+ *
+ * @return array
+ */
 $ivd->getCurrentVehicles();
-```
 
-#### Geçmiş Araç Bilgileri
-
-```php
+/**
+ * Geçmiş Araç Bilgileri
+ * Geçmişte sahibi olduğunuz, artık üzerinize kayıtlı olmayan araçlara ait bilgileri döndürür.
+ *
+ * @return array
+ */
 $ivd->getPreviousVehicles();
-```
 
-#### Vergi Ceza İhbarname Bilgileri
-
-```php
+/**
+ * Vergi Ceza İhbarname Bilgileri
+ *
+ * @return array
+ */
 $ivd->getTaxPenaltyNoticeInformation();
-```
 
-#### Sanal Pos Ödemeleri
-
-```php
+**
+ * Sanal Pos Ödemeleri
+ * Gelir İdaresi Başkanlığına sanal pos üzerinden yapılan ödemelerin listesini verir.
+ *
+ * @param  int   $year · Yıl
+ * @return array
+ */
 $ivd->getVirtualPosPayments(
-    year: 2018 // Zorunlu · Yıl
+    year: 2018
 );
-```
 
-#### E-Devlet Ödemeleri
-
-```php
+**
+ * E-Devlet Ödemeleri
+ * Gelir İdaresi Başkanlığına e-devlet üzerinden yapılan ödemelerin listesini verir.
+ *
+ * @param  int   $year · Yıl
+ * @return array
+ */
 $ivd->getEDevletPayments(
-    year: 2018 // Zorunlu · Yıl
+    year: 2018
 );
-```
 
-#### Diğer Ödemeler
-
-```php
+**
+ * Diğer Ödemeler
+ *
+ * @param  int   $year · Yıl
+ * @return array
+ */
 $ivd->getOtherPayments(
-    year: 2018 // Zorunlu · Yıl
+    year: 2018
 );
-```
 
-#### Servis Mesajları
-
-```php
+/*
+ * Servis Mesajları
+ * İnteraktif Vergi Dairesi üzerinden yayınlanan servis mesajlarını döndürür.
+ *
+ * @return array
+ */
 $ivd->getServiceMessages();
 ```
 
