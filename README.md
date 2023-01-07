@@ -59,7 +59,7 @@ $ivd = (new IvdService)->login('TC Kimlik No', 'Parola');
  * @param  string $dateOfBirth · Doğum Tarihi
  * @return array
  */
-$result = $ivd->taxIdInquiry(
+$ivd->taxIdInquiry(
     name        : 'Mert',
     lastName    : 'Levent',
     fatherName  : 'Walter',
@@ -73,7 +73,7 @@ $result = $ivd->taxIdInquiry(
  * @param  string $taxId · Vergi Numarası
  * @return array
  */
-$result = $ivd->taxIdInquiryForForeigners(
+$ivd->taxIdInquiryForForeigners(
     taxId : '1234567890'
 );
 
@@ -87,7 +87,7 @@ $result = $ivd->taxIdInquiryForForeigners(
  * @param  string $taxOffice · Vergi Dairesi
  * @return array
  */
-$result = $ivd->taxIdVerification(
+$ivd->taxIdVerification(
     //taxId   : '1234567890',
     trId      : '11111111111',
     province  : '016',
