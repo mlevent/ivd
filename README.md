@@ -1,6 +1,6 @@
 <h1 align="center">💸 İnteraktif Vergi Dairesi</h1>
-<p align="center">Bu Paket ile GİB İnteraktif Vergi Dairesi (https://ivd.gib.gov.tr) üzerinden bazı şifresiz/şifreli işlemleri gerçekleştirebilirsiniz.</p>
-
+<p align="center">https://ivd.gib.gov.tr</p>
+<p align="center">Bu Paket ile GİB İnteraktif Vergi Dairesi üzerinden bazı şifresiz/şifreli işlemleri gerçekleştirebilirsiniz.</p>
 <p align="center">
 <img src="https://img.shields.io/packagist/v/mlevent/ivd?style=plastic"/>
 <img src="https://img.shields.io/github/license/mlevent/ivd?style=plastic"/>
